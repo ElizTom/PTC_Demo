@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>PTC_Aachen</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link type="text/css" rel="stylesheet" href="main.css">
+	<style>
+		body {
+			color: #bbbbbb;
+			background: #333333;
+		}
+
+		a {
+			color: #08f;
+		}
+
+		.colorPicker {
+			display: inline-block;
+			margin: 0 10px
+		}
+	</style>
+
+	<script type="importmap">
+            {
+              "imports": {
+                "three": "https://unpkg.com/three@v0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@v0.160.0/examples/jsm/"
+              }
+            }
+        </script>
+
+</head>
+
+<body>
+	<div id="container"></div>
+
+	<script type="module">
+
+		import * as THREE from 'three';
+
+		import Stats from 'three/addons/libs/stats.module.js';
+
+		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+		import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+		import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+		let camera, scene, renderer;
+		let stats;
+
+		let grid;
+		let controls;
+
+		function init() {
+
+			const container = document.getElementById('container');
+
+			renderer = new THREE.WebGLRenderer({ antialias: true });
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setAnimationLoop(render);
+			renderer.toneMapping = THREE.ACESFilmicToneMapping;
+			renderer.toneMappingExposure = 0.85;
+			container.appendChild(renderer.domElement);
+
+			window.addEventListener('resize', onWindowResize);
+
+			stats = new Stats();
+			container.appendChild(stats.dom);
+
+			camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+			camera.position.set(10, 5, 15);
+
+			controls = new OrbitControls(camera, container);
+			controls.maxDistance = 9;
+			controls.maxPolarAngle = THREE.MathUtils.degToRad(90);
+			controls.target.set(0, 0.5, 0);
+			controls.update();
+
+			scene = new THREE.Scene();
+			scene.background = new THREE.Color(0x333333);
+			scene.environment = new RGBELoader().load('textures/venice_sunset_1k.hdr');
+			scene.environment.mapping = THREE.EquirectangularReflectionMapping;
+			scene.fog = new THREE.Fog(0x333333, 10, 20);
+
+			grid = new THREE.GridHelper(20, 40, 0xffffff, 0xffffff);
+			grid.material.opacity = 0.2;
+			grid.material.depthWrite = false;
+			grid.material.transparent = true;
+			scene.add(grid);
+
+			// Model
+
+			const dracoLoader = new DRACOLoader();
+			dracoLoader.setDecoderPath('js/Draco/');
+
+			const loader = new GLTFLoader();
+			loader.setDRACOLoader(dracoLoader);
+
+			loader.load('models/PTC_Aachen.glb', function (gltf) {
+
+				console.log(gltf);
+				const glbModel = gltf.scene.children[0];
+
+				for (let i = 0; i < glbModel.children.length; i++) {
+					// console.log(glbModel.children[i].name);
+				}
+				scene.add(glbModel);
+
+
+			});
+
+		}
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+		}
+
+		function render() {
+			controls.update();
+			renderer.render(scene, camera);
+			stats.update();
+		}
+
+		init();
+
+		// var xhr = new XMLHttpRequest();
+		// var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
+		// xhr.open("POST", url, true);
+		// xhr.setRequestHeader("Content-Type", "application/json");
+		// xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+		// xhr.setRequestHeader("Accept", "application/json");
+		// xhr.onreadystatechange = function () {
+		// 	if (xhr.readyState === 4 && xhr.status === 200) {
+		// 		var json = JSON.parse(xhr.responseText);
+		// 		console.log(json.email + ", " + json.password);
+		// 	}
+		// };
+		// var data = JSON.stringify({ "email": "hey@mail.com", "password": "101010" });
+		// xhr.send(data);
+
+		var xhr = new XMLHttpRequest();
+		var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D?data=" + encodeURIComponent(JSON.stringify({ "email": "hey@mail.com", "password": "101010" }));
+		xhr.open("GET", url, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var json = JSON.parse(xhr.responseText);
+				console.log(json.email + ", " + json.password);
+			}
+		};
+		xhr.send();
+		// curl--location--request POST 'https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D' \
+		// --header 'Content-Type: application/json' \
+		// --header 'appKey: 983ab5c1-ba96-42b2-bb23-25d3b4a1984e' \
+		// --header 'Accept: application/json' \
+		// --data - raw ''
+
+	</script>
+
+</body>
+
+</html>
