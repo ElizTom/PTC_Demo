@@ -136,14 +136,14 @@
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
 		xhr.setRequestHeader("Accept", "application/json");
+		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+		xhr.send();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var json = JSON.parse(xhr.responseText);
 				console.log(json.email + ", " + json.password);
 			}
 		};
-		var data = JSON.stringify({ "email": "hey@mail.com", "password": "101010" });
-		xhr.send(data);
 
 			/**var xhr = new XMLHttpRequest();
 			var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D?data=" + encodeURIComponent(JSON.stringify({ "email": "hey@mail.com", "password": "101010" }));
