@@ -6,6 +6,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<link type="text/css" rel="stylesheet" href="main.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<style>
 		body {
 			color: #bbbbbb;
@@ -130,41 +132,71 @@
 
 		init();
 
-		var xhr = new XMLHttpRequest();
-		var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
-		xhr.open("POST", url, true);
+		// var xhr = new XMLHttpRequest();
+		// var url = "https://cors.x7.workers.dev/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
+		// xhr.open("POST", url, true);
+		// xhr.setRequestHeader("Content-Type", "application/json");
+		// xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+		// xhr.setRequestHeader("Accept", "application/json");
+		// //xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+		// xhr.send();
+		// 	console.log("json", xhr);
+		// xhr.onreadystatechange = function () {
+		// 		console.log("json",xhr);
+		// 	if (xhr.readyState === 4 && xhr.status === 200) {
+		// 		var json = JSON.parse(xhr.responseText);
+		// 		console.log(json);
+		// 	}
+		// };
+
+		$.ajax({
+			url: 'https://cors.x7.workers.dev/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D',
+			// url: 'https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D',
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader("Content-Type", "application/json");
+				xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+				xhr.setRequestHeader("Accept", "application/json");
+				console.log("json", xhr);
+			}, success: function (data) {
+				console.log(data);
+				//process the JSON data etc
+			}
+		})
+
+
+		/**var xhr = new XMLHttpRequest();
+		var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D?data=" + encodeURIComponent(JSON.stringify({ "email": "hey@mail.com", "password": "101010" }));
+		xhr.open("GET", url, true);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
 		xhr.setRequestHeader("Accept", "application/json");
-		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		xhr.send();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var json = JSON.parse(xhr.responseText);
 				console.log(json.email + ", " + json.password);
 			}
 		};
+		xhr.send();**/
 
-			/**var xhr = new XMLHttpRequest();
-			var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D?data=" + encodeURIComponent(JSON.stringify({ "email": "hey@mail.com", "password": "101010" }));
-			xhr.open("GET", url, true);
-			xhr.setRequestHeader("Content-Type", "application/json");
-			xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
-			xhr.setRequestHeader("Accept", "application/json");
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var json = JSON.parse(xhr.responseText);
-					console.log(json.email + ", " + json.password);
-				}
-			};
-			xhr.send();**/
-		
 		// curl--location--request POST 'https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D' \
 		// --header 'Content-Type: application/json' \
 		// --header 'appKey: 983ab5c1-ba96-42b2-bb23-25d3b4a1984e' \
 		// --header 'Accept: application/json' \
 		// --data - raw ''
 
+		$.ajax({
+			url: 'https://cors.x7.workers.dev/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D',
+			crossDomain: true,
+			method: 'post',
+			headers: {
+				'appKey': '983ab5c1-ba96-42b2-bb23-25d3b4a1984e',
+				'Accept': 'application/json'
+			},
+			contentType: 'application/json',
+			data: ''
+		}).done(function (response) {
+			console.log(response);
+		});
 	</script>
 
 </body>
