@@ -158,7 +158,7 @@
 				xhr.setRequestHeader("Accept", "application/json");
 				console.log("json", xhr);
 			}, success: function (data) {
-				console.log(data);
+				console.log("data", data);
 				//process the JSON data etc
 			}
 		})
@@ -195,7 +195,7 @@
 			contentType: 'application/json',
 			data: ''
 		}).done(function (response) {
-			console.log(response);
+			console.log("response", response);
 		});
 	</script>
 
