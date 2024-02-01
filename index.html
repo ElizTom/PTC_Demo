@@ -104,7 +104,7 @@
 
 			loader.load('models/PTC_Aachen.glb', function (gltf) {
 
-				// console.log(gltf);
+				console.log(gltf);
 				const glbModel = gltf.scene.children[0];
 
 				for (let i = 0; i < glbModel.children.length; i++) {
@@ -132,80 +132,159 @@
 
 		init();
 
-		var xhr = new XMLHttpRequest();
-		var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
-		xhr.open("POST", url, true);
-		xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
-		xhr.setRequestHeader("Accept", "application/json");
-		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		xhr.setRequestHeader("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
-		// xhr.setRequestHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
-		xhr.send();
-		console.log("before json 1", xhr);
-		xhr.onreadystatechange = function () {
-			console.log("after json 1", xhr.responseText);
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var json = JSON.parse(xhr.responseText);
-				console.log(json);
-			}
-		};
-
-		// $.ajax({
-		// 	// url: 'https://cors.x7.workers.dev/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D',
-		// 	url: 'https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D',
-		// 	beforeSend: function (xhr) {
-		// 		xhr.setRequestHeader("Content-Type", "application/json");
-		// 		xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
-		// 		xhr.setRequestHeader("Accept", "application/json");
-		// 		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		// 		xhr.setRequestHeader("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
-		// 		console.log("before json 2", xhr);
-		// 	}, success: function (data) {
-		// 		console.log("after data 2", data);
-		// 		//process the JSON data etc
-		// 	}
-		// })
-
-
 		// var xhr = new XMLHttpRequest();
-		// var url = "https://cors.x7.workers.dev/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D?data=" + encodeURIComponent(JSON.stringify({ "email": "hey@mail.com", "password": "101010" }));
-		// xhr.open("GET", url, true);
-		// xhr.setRequestHeader("Content-Type", "application/json");
-		// xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
-		// xhr.setRequestHeader("Accept", "application/json");
-		// xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		// xhr.setRequestHeader("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
+		// // var url = "https://cors.x7.workers.dev/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
+		// // var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
+		// var url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m";
+		// xhr.open("POST", url, true);
+		// // xhr.setRequestHeader("Content-Type", "application/json");
+		// // xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+		// // xhr.setRequestHeader("Accept", "application/json");
 		// xhr.onreadystatechange = function () {
 		// 	if (xhr.readyState === 4 && xhr.status === 200) {
 		// 		var json = JSON.parse(xhr.responseText);
 		// 		console.log(json.email + ", " + json.password);
 		// 	}
+		// 	return true;
 		// };
-		// xhr.send();
+		// var data = JSON.stringify({ "email": "hey@mail.com", "password": "101010" });
+		// xhr.send(data);
 
+		/**var xhr = new XMLHttpRequest();
+		var url = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D?data=" + encodeURIComponent(JSON.stringify({ "email": "hey@mail.com", "password": "101010" }));
+		xhr.open("GET", url, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var json = JSON.parse(xhr.responseText);
+				console.log(json.email + ", " + json.password);
+			}
+		};
+		xhr.send();**/
 		// curl--location--request POST 'https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D' \
 		// --header 'Content-Type: application/json' \
 		// --header 'appKey: 983ab5c1-ba96-42b2-bb23-25d3b4a1984e' \
 		// --header 'Accept: application/json' \
 		// --data - raw ''
 
+		// const api_url =
+		// 	"https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
+
+		// // Defining async function
+		// async function getapi(url) {
+
+		// 	// Storing response
+		// 	const response = await fetch(url);
+
+		// 	// Storing data in form of JSON
+		// 	var data = await response.json();
+		// 	console.log(data);
+		// 	if (response) {
+		// 		hideloader();
+		// 	}
+		// 	show(data);
+		// }
+		// // Calling that async function
+		// getapi(api_url);
+
+		function getValue() {
+			let URL = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D";
+			let cors = "https://cors-anywhere.herokuapp.com/";
+			fetch(URL + cors, {
+				mode: 'no-cors', // 'cors' by default
+				headers: {
+					'Content-Type': 'application/json',
+					//'appKey': '983ab5c1-ba96-42b2-bb23-25d3b4a1984e',
+					//'Accept': 'application/json',
+					'Access-Control-Allow-Origin': '*'
+				}
+			}
+			)
+				.then((response) => {
+					console.log(response)
+					if (response.ok) {
+						return response.text()
+					}
+				}
+				)
+				.then(data => {
+					console.log(data)
+					//$scope.setWidgetProp('label-4', 'text', data)
+				}
+				)
+				.catch(function (error) {
+					console.log('FETCH FAIL', error);
+					//$scope.setWidgetProp('label-4', 'text', 'Fail to fetch data')
+					throw error;
+				}
+				)
+		}
+		// getValue();
+
+		$.getJSON('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m', function (data) {
+			console.log("data", data)
+		});
+
+		function loadJson() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					var tags = JSON.parse(this.responseText);
+					console.log(tags);
+				}
+			};
+			xhttp.open("POST", "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D", true);
+			xhttp.setRequestHeader("Content-Type", "application/json");
+			xhttp.setRequestHeader("appKey", "983ab5c1-ba96-42b2-bb23-25d3b4a1984e");
+			xhttp.setRequestHeader("Accept", "application/json");
+			xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+			xhttp.send();
+		}
+		// loadJson();
+
 		// $.ajax({
-		// 	url: 'https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D',
-		// 	crossDomain: true,
-		// 	method: 'post',
-		// 	headers: {
-		// 		'appKey': '983ab5c1-ba96-42b2-bb23-25d3b4a1984e',
-		// 		'Accept': 'application/json',
-		// 		"Access-Control-Allow-Origin": "*",
-		// 		"Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS"
+		// 	type: "POST", //rest Type
+		// 	dataType: 'json', //mispelled
+		// 	url: "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D",
+		// 	appKey: "983ab5c1-ba96-42b2-bb23-25d3b4a1984e",
+		// 	contentType: "application/json",
+		// 	success: function (msg) {
+		// 		console.log(msg);
 		// 	},
-		// 	contentType: 'application/json',
-		// 	data: ''
-		// }).done(function (response) {
-		// 	console.log("response", response);
+		// 	error: function (err, status) {
+		// 		console.log(err, status)
+		// 	}
 		// });
+
+		async function getUser() {
+			try {
+				const response = await fetch('https://cors-anywhere.herokuapp.com/https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D', {
+					method: 'POST',
+					headers: {
+						accept: 'application/json',
+						appKey: "983ab5c1-ba96-42b2-bb23-25d3b4a1984e",
+						contentType: "application/json",
+					},
+				});
+
+				if (!response.ok) {
+					throw new Error(`Error! status: ${response.status}`);
+				}
+
+				const result = await response.json();
+				return result;
+			} catch (err) {
+				console.log(err);
+			}
+		}
+
+		getUser();
+
 	</script>
+
+	<!-- let URL = "https://dfa-twx.germanywestcentral.cloudapp.azure.com/Thingworx/Things/LTTS.ESM.Manager/Services/GetAllAssetDataFor3D"; -->
 
 </body>
 
